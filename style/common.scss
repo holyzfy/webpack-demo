@@ -1,3 +1,7 @@
+.cloak,
+[v-cloak] {
+    visibility: hidden !important;
+}
 .clearfix {
     &:after {
         content: ".";
@@ -15,14 +19,21 @@ body {
     font-size: 0.875rem;
 }
 .header {
+    display: flex;
     border-bottom: 1px solid #080808;
     background: #222;
     text-align: center;
-    a {
-        color: #9d9d9d;
-        & + a {
+    justify-content: center;
+    li {
+        + li {
             margin-left: 2rem;
         }
+    }
+    a {
+        display: block;
+        line-height: 2.5rem;
+        color: #9d9d9d;
+        font-size: 1rem;
         &:hover {
             color: #fff;
         }
@@ -32,4 +43,12 @@ body {
             color: #fff;
         }
     }
+}
+.main {
+    margin: 1rem;
+}
+h1 {
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    font-weight: bold;
 }

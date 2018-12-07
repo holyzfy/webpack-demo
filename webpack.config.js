@@ -47,9 +47,41 @@ module.exports = (env, argv) => {
                         loader: 'babel-loader',
                         options: {
                             presets: ['@babel/preset-env'],
-                            plugins: ['@babel/plugin-transform-runtime']
+                            plugins: [
+                                '@babel/plugin-transform-runtime',
+                                '@babel/plugin-syntax-dynamic-import'
+                            ]
                         }
                     }
+                },
+                {
+                    test: /\.(png|jpe?g|gif|svg)$/i,
+                    use: [
+                        {
+                            loader: "url-loader",
+                            options: {
+                                limit: 8192,
+                                name: dev ? `[name].[ext]` : `[name].[hash:7].[ext]`
+                            }
+                        },
+                        {
+                            loader: 'image-webpack-loader',
+                            options: {
+                                disable: dev
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: /\.html$/,
+                    use: [
+                        {
+                            loader: 'html-loader',
+                            options: {
+                                minimize: true
+                            }
+                        }
+                    ]
                 }
             ]
         },
@@ -62,6 +94,11 @@ module.exports = (env, argv) => {
             new HtmlWebpackPlugin({
                 template: 'index.html'
             })
-        ]
+        ],
+        optimization: {
+            splitChunks: {
+                chunks: 'all'
+            }
+        }
     };
 };

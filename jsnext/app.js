@@ -1,10 +1,15 @@
 import '../style/reset.scss';
 import '../style/common.scss';
+import Vue from 'vue/dist/vue.min.js';
+import VueRouter from 'vue-router';
+import routes from './routes.js';
 
 function start(el) {
-    var title = document.createElement('h1');
-    title.textContent = 'index';
-    document.querySelector(el).appendChild(title);
+    Vue.use(VueRouter);
+    new Vue({
+        el,
+        router: new VueRouter({routes})
+    });
 }
 
 start('#app');

@@ -8,12 +8,15 @@
 <body>
 <div class="app">
     <ul class="header">
-       <li class="selected"><a href="index.html">index.html</a></li>
-       <li><a href="list.html">list.html</a></li>
-       <li><a href="detail.html">detail.html</a></li>
+       <li class="selected"><a href="index.html">index</a></li>
+       <li><a href="list.html">list</a></li>
+       <li><a href="detail.html">detail</a></li>
     </ul>
 </div>
 
-<div id="app"></div>
+<div id="app" class="main" v-cloak>
+    <h1>Async Components</h1>
+    <router-view></router-view>
+</div>
 </body>
 </html>
