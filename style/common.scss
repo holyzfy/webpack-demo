@@ -1,0 +1,35 @@
+.clearfix {
+    &:after {
+        content: ".";
+        display: block;
+        clear: both;
+        height: 0;
+        font-size: 0;
+        visibility: hidden;
+    }
+}
+html {
+    font-size: 16px;
+}
+body {
+    font-size: 0.875rem;
+}
+.header {
+    border-bottom: 1px solid #080808;
+    background: #222;
+    text-align: center;
+    a {
+        color: #9d9d9d;
+        & + a {
+            margin-left: 2rem;
+        }
+        &:hover {
+            color: #fff;
+        }
+    }
+    .selected {
+        a {
+            color: #fff;
+        }
+    }
+}
