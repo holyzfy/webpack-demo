@@ -60,7 +60,7 @@ module.exports = (env, argv) => {
                         {
                             loader: "url-loader",
                             options: {
-                                limit: 8192,
+                                limit: dev ? 1 : 8192,
                                 name: dev ? `[name].[ext]` : `[name].[hash:7].[ext]`
                             }
                         },
