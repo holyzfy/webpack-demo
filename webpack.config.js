@@ -78,7 +78,8 @@ module.exports = (env, argv) => {
                         {
                             loader: 'html-loader',
                             options: {
-                                minimize: true
+                                minimize: true,
+                                removeAttributeQuotes: false
                             }
                         }
                     ]
