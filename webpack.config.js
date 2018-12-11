@@ -1,6 +1,8 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = (env, argv) => {
     var dist = __dirname + '/dist';
@@ -100,6 +102,15 @@ module.exports = (env, argv) => {
             splitChunks: {
                 chunks: 'all'
             }
+        },
+        optimization: {
+            minimizer: [
+                new UglifyJsPlugin({
+                    cache: true,
+                    parallel: true
+                }),
+                new OptimizeCSSAssetsPlugin() 
+            ]
         }
     };
 };
