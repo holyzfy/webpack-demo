@@ -3,11 +3,34 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (env, argv) => {
     var dist = __dirname + '/dist';
     var dev = argv.mode === 'development';
+    var production = !dev;
     var hash = dev ? '' : '.[contenthash]';
+
+    var plugins = [
+        new CleanWebpackPlugin([dist]), 
+        new MiniCssExtractPlugin({
+            filename: `[name]${hash}.css`,
+            chunkFilename: `[name]${hash}.css`
+        }),
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            chunks: ['app']
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'list.html',
+            template: 'list.html',
+            chunks: ['list']
+        })
+    ];
+    production && plugins.push(...[
+        new BundleAnalyzerPlugin()
+    ]);
+
     return {
         entry: {
             polyfill: '@babel/polyfill',
@@ -103,22 +126,7 @@ module.exports = (env, argv) => {
                 }
             ]
         },
-        plugins: [
-            new CleanWebpackPlugin([dist]), 
-            new MiniCssExtractPlugin({
-                filename: `[name]${hash}.css`,
-                chunkFilename: `[name]${hash}.css`
-            }),
-            new HtmlWebpackPlugin({
-                template: 'index.html',
-                chunks: ['app']
-            }),
-            new HtmlWebpackPlugin({
-                filename: 'list.html',
-                template: 'list.html',
-                chunks: ['list']
-            })
-        ],
+        plugins,
         optimization: {
             minimizer: [
                 new UglifyJsPlugin({
