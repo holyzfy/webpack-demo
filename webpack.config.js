@@ -10,6 +10,7 @@ module.exports = (env, argv) => {
     var hash = dev ? '' : '.[contenthash]';
     return {
         entry: {
+            polyfill: '@babel/polyfill',
             app: './jsnext/app.js'
         },
         output: {
@@ -23,14 +24,27 @@ module.exports = (env, argv) => {
                 {
                     test: /\.scss$/,
                     use: [
-                        dev ? 'style-loader': MiniCssExtractPlugin.loader,
-                        'css-loader',
+                        dev ? {
+                            loader: 'style-loader',
+                            options: {
+                                sourceMap: true,
+                                convertToAbsoluteUrls: true
+                            }
+                        } : MiniCssExtractPlugin.loader,
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: dev
+                            }
+                        },
                         {
                             loader: 'postcss-loader',
                             options: {
                                 ident: 'postcss',
                                 plugins: [
-                                    require('postcss-preset-env')()
+                                    require('postcss-preset-env')({
+                                        browsers: 'last 2 versions' 
+                                    })
                                 ]
                             }
                         },
