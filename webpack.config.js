@@ -11,7 +11,8 @@ module.exports = (env, argv) => {
     return {
         entry: {
             polyfill: '@babel/polyfill',
-            app: './jsnext/app.js'
+            app: './jsnext/app.js',
+            list: './jsnext/list.js'
         },
         output: {
             path: dist,
@@ -109,7 +110,13 @@ module.exports = (env, argv) => {
                 chunkFilename: `[id]${hash}.css`
             }),
             new HtmlWebpackPlugin({
-                template: 'index.html'
+                template: 'index.html',
+                chunks: ['app']
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'list.html',
+                template: 'list.html',
+                chunks: ['list']
             })
         ],
         optimization: {
