@@ -1,8 +1,8 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = (env, argv) => {
     var dist = __dirname + '/dist';
@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
             path: dist,
             hashDigestLength: 7,
             filename: `[name]${hash}.js`,
-            chunkFilename: `[id]${hash}.js`
+            chunkFilename: `[name]${hash}.js`
         },
         module: {
             rules: [
@@ -75,7 +75,7 @@ module.exports = (env, argv) => {
                     test: /\.(png|jpe?g|gif|svg)$/i,
                     use: [
                         {
-                            loader: "url-loader",
+                            loader: 'url-loader',
                             options: {
                                 limit: dev ? 1 : 8192,
                                 name: dev ? `[name].[ext]` : `[name].[hash:7].[ext]`
@@ -107,7 +107,7 @@ module.exports = (env, argv) => {
             new CleanWebpackPlugin([dist]), 
             new MiniCssExtractPlugin({
                 filename: `[name]${hash}.css`,
-                chunkFilename: `[id]${hash}.css`
+                chunkFilename: `[name]${hash}.css`
             }),
             new HtmlWebpackPlugin({
                 template: 'index.html',
