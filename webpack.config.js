@@ -120,11 +120,6 @@ module.exports = (env, argv) => {
             })
         ],
         optimization: {
-            splitChunks: {
-                chunks: 'all'
-            }
-        },
-        optimization: {
             minimizer: [
                 new UglifyJsPlugin({
                     cache: true,
