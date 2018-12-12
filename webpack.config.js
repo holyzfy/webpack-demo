@@ -1,6 +1,6 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -46,7 +46,7 @@ module.exports = (env, argv) => {
         module: {
             rules: [
                 {
-                    test: /\.scss$/,
+                    test: /\.s?css$/,
                     use: [
                         dev ? {
                             loader: 'style-loader',
@@ -128,11 +128,9 @@ module.exports = (env, argv) => {
         },
         plugins,
         optimization: {
+            minimize: true,
             minimizer: [
-                new UglifyJsPlugin({
-                    cache: true,
-                    parallel: true
-                }),
+                new TerserPlugin(),
                 new OptimizeCSSAssetsPlugin() 
             ]
         }

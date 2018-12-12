@@ -1,6 +1,6 @@
 <div>
-    <router-link to="/">back to home</router-link>
-    <ul>
+    <router-link to="/">&lt; back to home</router-link>
+    <ul class="list">
         <li v-for="n in 10"><router-link :to="{name: 'archive', params: {id: n}}">archive {{n}}</router-link></li>
     </ul>
 </div>
